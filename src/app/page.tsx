@@ -3,9 +3,9 @@ import Search from "./components/Search";
 
 export default async function Page() {
   return (
-    <div className=" max-w-5xl md:max-w-full mx-auto h-full md:flex flex flex-1 justify-end items-center px-10  min-h-[inherit]">
+    <div className=" max-w-5xl md:max-w-full mx-auto h-full flex flex-col-reverse md:flex-col flex-1 justify-end items-center px-10 py-20 md:py-0 min-h-[inherit]">
       <div>
-        <h1 className="md:text-[130px]  text-5xl text-center leading-[.75] text-white md:pl-12 z-10 p-10 py-40">
+        <h1 className="md:text-[130px]  text-5xl text-center leading-[.75] text-white md:pl-12 z-10 p-10 py-20">
           DECODING DREAMS
         </h1>{" "}
       </div>
