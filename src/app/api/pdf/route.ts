@@ -13,7 +13,7 @@ export async function POST(req: NextRequest) {
     const uploadedFile = uploadedFiles[1];
 
     // Check if uploadedFile is of type File
-    if (uploadedFile) {
+    if (typeof uploadedFile !== "string") {
       // Generate a unique filename
       const fileName = uuidv4();
 
