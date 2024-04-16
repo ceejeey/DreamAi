@@ -18,8 +18,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <div className="bg-[#2b2b2b]">
+      <body className={`${inter.className}  bg-[#424242] `}>
+        <div className="min-h-[100vh] ">
           <Image
             src="/sub.jpg"
             fill

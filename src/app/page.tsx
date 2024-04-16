@@ -3,26 +3,20 @@ import Search from "./components/Search";
 
 export default async function Page() {
   return (
-    <div className="  h-full">
-      <div className=" max-w-5xl md:max-w-full mx-auto h-full md:flex justify-end items-center px-10 ">
-        <div className="">
-          <h1 className="md:text-[130px]  text-5xl text-center leading-[.75] text-white md:pl-12 z-10 p-10 py-40">
-            {" "}
-            DECODING DREAMS
-          </h1>{" "}
-          <p></p>
-        </div>
-        {/* <div className="w-full  rounded-sm shadow-sm border flex flex-col p-5 md:w-2/3 "> */}
-        <div className="flex items-start justify-center md:w-2/3 ">
-          <div className="relative group w-full flex flex-1">
-            <div className="absolute -inset-0.5 bg-gradient-to-r from-pink-600 to-purple-600 rounded-lg blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-tilt"></div>
-            <div className="relative px-7 py-4 bg-black rounded-lg leading-none flex flex-col flex-1 w-full divide-x divide-gray-600 h-[80vh]">
-              <Search />
-            </div>
+    <div className=" max-w-5xl md:max-w-full mx-auto h-full md:flex flex flex-1 justify-end items-center px-10  min-h-[inherit]">
+      <div>
+        <h1 className="md:text-[130px]  text-5xl text-center leading-[.75] text-white md:pl-12 z-10 p-10 py-40">
+          DECODING DREAMS
+        </h1>{" "}
+      </div>
+      <div className="flex items-start justify-center md:w-2/3 ">
+        <div className="relative group w-full flex flex-1">
+          <div className="absolute -inset-0.5 bg-gradient-to-r from-pink-600 to-purple-600 rounded-lg blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-tilt"></div>
+          <div className="relative px-7 py-4 bg-black rounded-lg leading-none flex flex-col flex-1 w-full divide-x divide-gray-600 h-[80vh]">
+            <Search />
           </div>
         </div>
       </div>
-      {/* </div> */}
     </div>
   );
 }
