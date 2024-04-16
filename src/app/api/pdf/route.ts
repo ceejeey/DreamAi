@@ -7,7 +7,6 @@ export async function POST(req: NextRequest) {
   const formData: FormData = await req.formData();
   // console.log("🚀 ~ POST ~ formData:", formData);
   const uploadedFiles = formData.getAll("title");
-  console.log("🚀 ~ POST ~ uploadedFiles:", uploadedFiles);
 
   if (uploadedFiles && uploadedFiles.length > 0) {
     const uploadedFile = uploadedFiles[1];
