@@ -146,7 +146,7 @@ export default function Search() {
   return (
     <>
       <div
-        className="flex-1 h-80vh overflow-y-auto space-y-10 "
+        className="flex-1 h-full overflow-y-auto space-y-10 "
         ref={conversationEl}
       >
         <div className="flex items-center justify-between  pb-3">
