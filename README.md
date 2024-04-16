@@ -14,5 +14,7 @@ yarn dev
 
 ## Credit Resources
 
--   https://supabase.com/blog/openai-embeddings-postgres-vector
--   https://supabase.com/docs/guides/auth/auth-helpers/nextjs
+- https://supabase.com/blog/openai-embeddings-postgres-vector
+- https://supabase.com/docs/guides/auth/auth-helpers/nextjs
+
+rlEHw3Sd70OlRBoI
