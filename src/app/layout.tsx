@@ -20,12 +20,14 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.className}  bg-[#303030] `}>
         <div className="min-h-[100vh] ">
-          <Image
+          <div className="bg-[url('/sub.jpg')] absolute top-0 bottom-0 left-0 right-0 bg-repeat opacity-10"></div>
+          {/* <Image
             src="/sub.jpg"
             fill
-            className="opacity-20 -z-10"
+            className="opacity-20 -z-10 repeat-"
             alt="DreamAi"
-          ></Image>
+            
+          /> */}
           {children} <Toaster />
         </div>
       </body>
