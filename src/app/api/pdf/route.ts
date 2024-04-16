@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"; // To handle the request and response
 import { promises as fs } from "fs"; // To save the file temporarily
-import { v4 as uuidv4 } from "uuid"; // To generate a unique filename
+import { v4 } from "uuid"; // To generate a unique filename
 import PDFParser from "pdf2json"; // To parse the pdf
 
 export async function POST(req: NextRequest) {
@@ -14,7 +14,7 @@ export async function POST(req: NextRequest) {
     // Check if uploadedFile is of type File
     if (typeof uploadedFile !== "string") {
       // Generate a unique filename
-      const fileName = uuidv4();
+      const fileName = v4();
 
       // Convert the uploaded file into a temporary file
       const tempFilePath = `/tmp/${fileName}.pdf`;
