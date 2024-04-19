@@ -16,6 +16,10 @@
 
 - **Shadcn**: [Shadcn UI](https://ui.shadcn.com/) - A React UI library that provides a collection of high-quality components and templates to kickstart your application designs.
 
+- **Google Ai Studio**: [Google/generative-ai](@google/generative-ai) - Google's state-of-the-art generative AI models to build AI-powered features and applications.
+
+- **Supabase**: [Supabase](https://supabase.com/) - Supabase is an open source Firebase alternative. We're building the features of Firebase using enterprise-grade open source tools. Hosted Postgres Database.
+
 - **Vercel**: [Vercel](https://vercel.com/) - A platform for frontend frameworks and static sites, built to integrate with your headless content, commerce, or database.
 
 ## Screenshots
@@ -25,14 +29,13 @@
 
 <!-- ## Router Architecture -->
 
-![Architecture Diagram](/src/assets//router_diagram.png)
+<!-- ![Architecture Diagram](/src/assets//router_diagram.png) -->
 
-<!-- ## Features
+## Features
 
 - Responsive layout compatible with various screen sizes.
-- Progressive Web App capabilities for offline usage and installability.
-- Theming support with Dark and Light mode preferences.
-- Comprehensive typing with TypeScript for robustness. -->
+<!-- - Theming support with Dark and Light mode preferences. -->
+- Comprehensive typing with TypeScript for robustness.
 
 ## Local Development
 

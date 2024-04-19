@@ -33,11 +33,12 @@ export default function Form() {
         toastError();
       } else {
         const result = await res.json();
+        console.log("🚀 ~ handleCreateEmbeddings ~ result:", result);
         const embedding = result?.embedding?.values;
         const token = result.token;
 
         const { error } = await supabase.from("documents").insert({
-          data,
+          content: data,
           embedding,
           token,
         });
@@ -55,7 +56,6 @@ export default function Form() {
   };
 
   const handleSubmit = async () => {
-    // setLoading(true);
     const content = inputRef.current.value;
     handleCreateEmbeddings(content);
   };
@@ -81,7 +81,7 @@ export default function Form() {
     <>
       <Textarea
         placeholder="Add your dataset"
-        className="h-96"
+        className="h-96 text-white"
         ref={inputRef}
       />
       <Button className="w-full flex gap-2" onClick={handleSubmit}>

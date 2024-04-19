@@ -9,6 +9,7 @@ import { PiSealQuestionThin } from "react-icons/pi";
 import { useToast } from "@/components/ui/use-toast";
 import { stripIndent, oneLine } from "common-tags";
 import { createClient } from "@/utils/supabase/client";
+
 export default function Search() {
   const router = useRouter();
   const inputRef = useRef() as React.MutableRefObject<HTMLInputElement>;
@@ -89,7 +90,11 @@ export default function Search() {
       body: JSON.stringify({ prompt }),
     });
     if (res.status !== 200) {
-      toastError();
+      // toastError();
+      setAnswer((currentAnswer) => [
+        ...currentAnswer,
+        "Oh my child, Your lord is taking rest come later",
+      ]);
     } else {
       const data = await res.json();
       setAnswer((currentAnswer) => [...currentAnswer, data.choices]);
@@ -98,37 +103,23 @@ export default function Search() {
 
   const generatePrompt = (contextText: string, searchText: string) => {
     const prompt = stripIndent`${oneLine`
-    You are a very enthusiastic Dream interpreting expert who loves
+    You are a very enthusiastic Dream mystical indian guru who loves
     to help people! Given the following sections from the Dream
-    documentation or make up something people can relate, answer the question using only that information,
-    outputted in markdown format and your answer should sounded given wording reference. 
+    documentation or make up something people can relate and always give answer like you know evertthing, keep Philosophical and Reflective Tone, Use of Analogies and Metaphorical Language also be very emphathetic, answer the question using only that information,
+    outputted in markdown format 
 	`}
 
-	wording reference:
-	"You must understand this: One thing is, you have not seen the world.
-	 You have only seen it the way it's reflected in the mirror of your mind, 
-	 yes? You are not seeing the world as it is. You are seeing it in the mirror 
-	 of the human mind. It is distorted in a particular way. If you were a grasshopper,
-	  you would be seeing the world very differently. If you were some other creature,
-	   you would be seeing the world very differently. So, your mirror is a certain level 
-	   of prejudice. Among all the creatures, what evolution means is On one level, your mirror 
-	   is fairly more plain compared to the mirrors that other creatures hold in their mind.
-	    Suppose there is a tiger here, I'm talking about the animal. If there was a tiger here,
-		 he looks like this – dinner, breakfast, lunch. He can't think beyond that because His 
-		 mirror is like that. The mirror of his mind shows him only food. Compared to other creatures
-		 , a human being has a better leveled-out mirror, but it can get distorted depending on the varieties 
-		 of identifications and prejudices we gather with life. If you are very strongly identified with"
 
 
 
 
     Context sections:
-    ${contextText}
+
 	${searchText}
 
    
 
-    Answer as markdown (including related code snippets if available):
+    Answer as markdown 
   `;
     return prompt;
   };
@@ -145,10 +136,7 @@ export default function Search() {
 
   return (
     <>
-      <div
-        className="flex-1 h-full overflow-y-auto space-y-10 "
-        ref={conversationEl}
-      >
+      <div className=" overflow-y-auto space-y-10 " ref={conversationEl}>
         <div className="flex items-center justify-between  pb-3">
           <div className="flex items-center gap-2">
             <BsRobot className="w-5 h-5" />
@@ -162,7 +150,7 @@ export default function Search() {
           const isLoading = loading && !answer;
 
           return (
-            <div className="space-y-3" key={index}>
+            <div className="space-y-3  " key={index}>
               <div className="flex items-center gap-2 text-indigo-500 bg-[#1f1e1e] p-5 rounded-lg">
                 <PiSealQuestionThin className="w-5 h-5" />
                 <h1 className="">{question}</h1>
@@ -182,7 +170,7 @@ export default function Search() {
       <Input
         ref={inputRef}
         placeholder="Describe your dream!"
-        className="p-5 text-white"
+        className="p-5 text-white mt-10"
         onKeyDown={(e) => {
           if (e.key === "Enter") {
             handleSearch();
