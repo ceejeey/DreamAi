@@ -1,7 +1,16 @@
-import { type NextRequest } from "next/server";
+import { NextResponse, type NextRequest } from "next/server";
 import { updateSession } from "@/utils/supabase/middleware";
+import { createClient } from "./utils/supabase/server";
 
 export async function middleware(request: NextRequest) {
+  const supabase = createClient();
+
+  // Attempt to retrieve user data
+  const { data, error } = await supabase.auth.getUser();
+
+  if (!data && error) {
+    return NextResponse.redirect("/login");
+  }
   return await updateSession(request);
 }
 
