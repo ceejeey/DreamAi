@@ -21,8 +21,9 @@ export default function Search() {
   const supabase = createClient();
 
   const handleLogout = async () => {
+    // "use server";
     await supabase.auth.signOut();
-    router.refresh();
+    // router.refresh();
   };
 
   const toastError = (message = "Something went wrong") => {
@@ -173,7 +174,8 @@ export default function Search() {
         className="p-5 text-white mt-10"
         onKeyDown={(e) => {
           if (e.key === "Enter") {
-            handleSearch();
+            // handleSearch();
+            handleLogout();
           }
         }}
       />

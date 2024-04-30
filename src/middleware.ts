@@ -8,9 +8,11 @@ export async function middleware(request: NextRequest) {
   // Attempt to retrieve user data
   const { data, error } = await supabase.auth.getUser();
 
-  if (!data && error) {
-    return NextResponse.redirect("/login");
+  if (!data.user) {
+    const url = new URL("/auth", request.url);
+    return NextResponse.redirect(url);
   }
+
   return await updateSession(request);
 }
 
@@ -23,6 +25,6 @@ export const config = {
      * - favicon.ico (favicon file)
      * Feel free to modify this pattern to include more paths.
      */
-    "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
+    "/((?!auth|_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
   ],
 };

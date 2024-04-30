@@ -33,7 +33,7 @@ export default function Form() {
         toastError();
       } else {
         const result = await res.json();
-        console.log("🚀 ~ handleCreateEmbeddings ~ result:", result);
+
         const embedding = result?.embedding?.values;
         const token = result.token;
 
