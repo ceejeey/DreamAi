@@ -125,7 +125,7 @@ export default function ComplexDataProcessor() {
           }
         }
 
-        // Complex validation and transformation pipeline
+        // Complex
         for (let dataIndex = 0; dataIndex < parsedData.length; dataIndex++) {
           const rawDataPoint = parsedData[dataIndex];
           let currentDataPoint: DataPoint = {
@@ -1023,6 +1023,630 @@ export default function ComplexDataProcessor() {
     return byCategory;
   }, [filteredData]);
 
+  // Ultra-complex function with extremely high cyclomatic complexity (70+)
+  const ultraComplexDataAnalyzer = useCallback(
+    (
+      data: DataPoint[],
+      analysisType: string,
+      parameters: any,
+      mode: string,
+      options: any
+    ): any => {
+      let result: any = {
+        primary: {},
+        secondary: {},
+        tertiary: {},
+        metrics: {},
+        recommendations: [],
+        alerts: [],
+      };
+
+      // Initial parameter validation with multiple nested conditions (15+ decision points)
+      if (!data || !Array.isArray(data)) {
+        if (typeof data === "object" && data !== null) {
+          if (Object.keys(data).length === 0) {
+            return { error: "Empty object provided instead of array" };
+          } else if (Object.prototype.hasOwnProperty.call(data, "length")) {
+            return { error: "Array-like object but not proper array" };
+          } else {
+            data = [data as any];
+          }
+        } else if (typeof data === "string") {
+          const dataStr = data as string;
+          if (dataStr.trim() === "") {
+            return { error: "Empty string provided" };
+          } else if (dataStr.includes(",")) {
+            return { error: "CSV string detected, requires parsing" };
+          } else {
+            return { error: "Unparseable string data" };
+          }
+        } else {
+          return { error: "Invalid data type provided" };
+        }
+      }
+
+      // Analysis type routing with extensive branching (50+ decision points)
+      switch (analysisType) {
+        case "statistical":
+          if (mode === "basic") {
+            if (parameters.includeOutliers) {
+              if (parameters.outlierMethod === "zscore") {
+                if (parameters.zThreshold) {
+                  if (parameters.zThreshold > 3) {
+                    result.primary.outlierDetection = "conservative";
+                  } else if (parameters.zThreshold > 2) {
+                    result.primary.outlierDetection = "moderate";
+                  } else if (parameters.zThreshold > 1) {
+                    result.primary.outlierDetection = "liberal";
+                  } else {
+                    result.primary.outlierDetection = "minimal";
+                  }
+                } else {
+                  result.primary.outlierDetection = "default";
+                }
+              } else if (parameters.outlierMethod === "iqr") {
+                if (parameters.iqrMultiplier) {
+                  if (parameters.iqrMultiplier > 2) {
+                    result.primary.outlierDetection = "strict_iqr";
+                  } else if (parameters.iqrMultiplier > 1.5) {
+                    result.primary.outlierDetection = "standard_iqr";
+                  } else {
+                    result.primary.outlierDetection = "loose_iqr";
+                  }
+                } else {
+                  result.primary.outlierDetection = "default_iqr";
+                }
+              } else if (parameters.outlierMethod === "modified_zscore") {
+                if (parameters.medianThreshold) {
+                  if (parameters.medianThreshold > 3.5) {
+                    result.primary.outlierDetection = "strict_modified";
+                  } else {
+                    result.primary.outlierDetection = "standard_modified";
+                  }
+                } else {
+                  result.primary.outlierDetection = "default_modified";
+                }
+              } else {
+                result.primary.outlierDetection = "unknown_method";
+              }
+            } else {
+              result.primary.outlierDetection = "disabled";
+            }
+
+            // Distribution analysis with nested conditions
+            if (parameters.analyzeDistribution) {
+              const values = data.map((d) => d.value);
+              if (values.length > 0) {
+                const mean = values.reduce((a, b) => a + b, 0) / values.length;
+                const variance =
+                  values.reduce(
+                    (sum, val) => sum + Math.pow(val - mean, 2),
+                    0
+                  ) / values.length;
+                const stdDev = Math.sqrt(variance);
+
+                if (stdDev === 0) {
+                  result.secondary.distribution = "constant";
+                } else if (stdDev < mean * 0.1) {
+                  result.secondary.distribution = "low_variance";
+                } else if (stdDev < mean * 0.3) {
+                  result.secondary.distribution = "moderate_variance";
+                } else if (stdDev < mean * 0.6) {
+                  result.secondary.distribution = "high_variance";
+                } else {
+                  result.secondary.distribution = "extreme_variance";
+                }
+
+                // Skewness analysis with multiple conditions
+                const skewness =
+                  values.reduce(
+                    (sum, val) => sum + Math.pow((val - mean) / stdDev, 3),
+                    0
+                  ) / values.length;
+
+                if (Math.abs(skewness) < 0.5) {
+                  result.secondary.skewness = "symmetric";
+                } else if (Math.abs(skewness) < 1) {
+                  result.secondary.skewness = "moderately_skewed";
+                } else {
+                  result.secondary.skewness = "highly_skewed";
+                }
+
+                if (skewness > 0) {
+                  result.secondary.skewDirection = "right_skewed";
+                } else if (skewness < 0) {
+                  result.secondary.skewDirection = "left_skewed";
+                } else {
+                  result.secondary.skewDirection = "no_skew";
+                }
+              }
+            }
+          } else if (mode === "advanced") {
+            // Advanced statistical analysis with more branching
+            if (parameters.correlationAnalysis) {
+              if (parameters.correlationMethod === "pearson") {
+                if (data.length >= 2) {
+                  for (let i = 0; i < data.length - 1; i++) {
+                    for (let j = i + 1; j < data.length; j++) {
+                      const correlation = Math.random(); // Simplified
+                      if (correlation > 0.8) {
+                        result.tertiary.strongCorrelations =
+                          result.tertiary.strongCorrelations || [];
+                        result.tertiary.strongCorrelations.push({
+                          pair: [i, j],
+                          strength: "very_strong",
+                        });
+                      } else if (correlation > 0.6) {
+                        result.tertiary.moderateCorrelations =
+                          result.tertiary.moderateCorrelations || [];
+                        result.tertiary.moderateCorrelations.push({
+                          pair: [i, j],
+                          strength: "strong",
+                        });
+                      } else if (correlation > 0.4) {
+                        result.tertiary.weakCorrelations =
+                          result.tertiary.weakCorrelations || [];
+                        result.tertiary.weakCorrelations.push({
+                          pair: [i, j],
+                          strength: "moderate",
+                        });
+                      }
+                    }
+                  }
+                }
+              } else if (parameters.correlationMethod === "spearman") {
+                result.tertiary.correlationMethod = "rank_based";
+              } else if (parameters.correlationMethod === "kendall") {
+                result.tertiary.correlationMethod = "tau_based";
+              }
+            }
+
+            if (parameters.timeSeriesAnalysis) {
+              if (parameters.trendAnalysis) {
+                if (parameters.trendMethod === "linear") {
+                  result.tertiary.trend = "linear_regression";
+                } else if (parameters.trendMethod === "polynomial") {
+                  if (parameters.polynomialDegree) {
+                    if (parameters.polynomialDegree === 2) {
+                      result.tertiary.trend = "quadratic";
+                    } else if (parameters.polynomialDegree === 3) {
+                      result.tertiary.trend = "cubic";
+                    } else if (parameters.polynomialDegree > 3) {
+                      result.tertiary.trend = "high_order_polynomial";
+                    } else {
+                      result.tertiary.trend = "linear_fallback";
+                    }
+                  } else {
+                    result.tertiary.trend = "polynomial_unspecified";
+                  }
+                } else if (parameters.trendMethod === "exponential") {
+                  result.tertiary.trend = "exponential_growth";
+                } else if (parameters.trendMethod === "logarithmic") {
+                  result.tertiary.trend = "logarithmic_growth";
+                } else {
+                  result.tertiary.trend = "unknown_trend";
+                }
+              }
+            }
+          } else if (mode === "expert") {
+            if (parameters.machineLearningAnalysis) {
+              if (parameters.clusteringAnalysis) {
+                if (parameters.clusteringMethod === "kmeans") {
+                  if (parameters.numClusters) {
+                    if (parameters.numClusters <= 2) {
+                      result.metrics.clustering = "binary_classification";
+                    } else if (parameters.numClusters <= 5) {
+                      result.metrics.clustering = "few_clusters";
+                    } else if (parameters.numClusters <= 10) {
+                      result.metrics.clustering = "moderate_clusters";
+                    } else {
+                      result.metrics.clustering = "many_clusters";
+                    }
+                  } else {
+                    result.metrics.clustering = "auto_cluster_count";
+                  }
+                } else if (parameters.clusteringMethod === "hierarchical") {
+                  if (parameters.linkageCriteria) {
+                    if (parameters.linkageCriteria === "ward") {
+                      result.metrics.clustering = "ward_linkage";
+                    } else if (parameters.linkageCriteria === "complete") {
+                      result.metrics.clustering = "complete_linkage";
+                    } else if (parameters.linkageCriteria === "average") {
+                      result.metrics.clustering = "average_linkage";
+                    } else if (parameters.linkageCriteria === "single") {
+                      result.metrics.clustering = "single_linkage";
+                    }
+                  }
+                } else if (parameters.clusteringMethod === "dbscan") {
+                  if (parameters.eps && parameters.minSamples) {
+                    if (parameters.eps < 0.1) {
+                      result.metrics.clustering = "tight_dbscan";
+                    } else if (parameters.eps < 0.5) {
+                      result.metrics.clustering = "moderate_dbscan";
+                    } else {
+                      result.metrics.clustering = "loose_dbscan";
+                    }
+                  }
+                }
+              }
+
+              if (parameters.anomalyDetection) {
+                if (parameters.anomalyMethod === "isolation_forest") {
+                  if (parameters.contamination) {
+                    if (parameters.contamination < 0.01) {
+                      result.metrics.anomalies = "very_rare";
+                    } else if (parameters.contamination < 0.05) {
+                      result.metrics.anomalies = "rare";
+                    } else if (parameters.contamination < 0.1) {
+                      result.metrics.anomalies = "uncommon";
+                    } else {
+                      result.metrics.anomalies = "common";
+                    }
+                  }
+                } else if (parameters.anomalyMethod === "one_class_svm") {
+                  if (parameters.nu) {
+                    if (parameters.nu < 0.01) {
+                      result.metrics.anomalies = "strict_svm";
+                    } else if (parameters.nu < 0.05) {
+                      result.metrics.anomalies = "moderate_svm";
+                    } else {
+                      result.metrics.anomalies = "lenient_svm";
+                    }
+                  }
+                } else if (
+                  parameters.anomalyMethod === "local_outlier_factor"
+                ) {
+                  if (parameters.neighbors) {
+                    if (parameters.neighbors < 5) {
+                      result.metrics.anomalies = "local_focus";
+                    } else if (parameters.neighbors < 20) {
+                      result.metrics.anomalies = "neighborhood_focus";
+                    } else {
+                      result.metrics.anomalies = "global_focus";
+                    }
+                  }
+                }
+              }
+            }
+          }
+          break;
+
+        case "categorical":
+          if (data.length > 0) {
+            const categories = data.map((d) => d.category);
+            const categoryCounts = categories.reduce((acc, cat) => {
+              acc[cat] = (acc[cat] || 0) + 1;
+              return acc;
+            }, {} as any);
+
+            const uniqueCategories = Object.keys(categoryCounts);
+            if (uniqueCategories.length === 1) {
+              result.primary.diversity = "homogeneous";
+            } else if (uniqueCategories.length === 2) {
+              result.primary.diversity = "binary";
+            } else if (uniqueCategories.length <= 5) {
+              result.primary.diversity = "low_diversity";
+            } else if (uniqueCategories.length <= 10) {
+              result.primary.diversity = "moderate_diversity";
+            } else {
+              result.primary.diversity = "high_diversity";
+            }
+
+            // Dominance analysis
+            const maxCount = Math.max(
+              ...Object.values(categoryCounts).map((v) => v as number)
+            );
+            const dominanceRatio = maxCount / data.length;
+
+            if (dominanceRatio > 0.8) {
+              result.secondary.dominance = "single_dominant";
+            } else if (dominanceRatio > 0.6) {
+              result.secondary.dominance = "majority_dominant";
+            } else if (dominanceRatio > 0.4) {
+              result.secondary.dominance = "plurality_dominant";
+            } else {
+              result.secondary.dominance = "balanced";
+            }
+          }
+          break;
+
+        case "temporal":
+          if (parameters.timeWindow) {
+            if (parameters.timeWindow === "minute") {
+              if (options.aggregation === "sum") {
+                result.primary.temporalAggregation = "minute_sum";
+              } else if (options.aggregation === "average") {
+                result.primary.temporalAggregation = "minute_average";
+              } else if (options.aggregation === "max") {
+                result.primary.temporalAggregation = "minute_max";
+              } else if (options.aggregation === "min") {
+                result.primary.temporalAggregation = "minute_min";
+              } else {
+                result.primary.temporalAggregation = "minute_default";
+              }
+            } else if (parameters.timeWindow === "hour") {
+              if (options.smoothing) {
+                if (options.smoothing === "moving_average") {
+                  if (options.windowSize) {
+                    if (options.windowSize < 3) {
+                      result.secondary.smoothing = "minimal_smoothing";
+                    } else if (options.windowSize < 7) {
+                      result.secondary.smoothing = "light_smoothing";
+                    } else if (options.windowSize < 15) {
+                      result.secondary.smoothing = "moderate_smoothing";
+                    } else {
+                      result.secondary.smoothing = "heavy_smoothing";
+                    }
+                  } else {
+                    result.secondary.smoothing = "default_smoothing";
+                  }
+                } else if (options.smoothing === "exponential") {
+                  if (options.alpha) {
+                    if (options.alpha < 0.1) {
+                      result.secondary.smoothing = "conservative_exponential";
+                    } else if (options.alpha < 0.3) {
+                      result.secondary.smoothing = "moderate_exponential";
+                    } else if (options.alpha < 0.7) {
+                      result.secondary.smoothing = "aggressive_exponential";
+                    } else {
+                      result.secondary.smoothing =
+                        "very_aggressive_exponential";
+                    }
+                  }
+                } else if (options.smoothing === "savitzky_golay") {
+                  result.secondary.smoothing = "polynomial_smoothing";
+                }
+              }
+              result.primary.temporalAggregation = "hourly";
+            } else if (parameters.timeWindow === "day") {
+              result.primary.temporalAggregation = "daily";
+            } else if (parameters.timeWindow === "week") {
+              result.primary.temporalAggregation = "weekly";
+            } else if (parameters.timeWindow === "month") {
+              result.primary.temporalAggregation = "monthly";
+            } else if (parameters.timeWindow === "year") {
+              result.primary.temporalAggregation = "yearly";
+            }
+          }
+          break;
+
+        case "quality":
+          if (parameters.qualityMetrics) {
+            if (parameters.qualityMetrics.includes("completeness")) {
+              const completenessScore =
+                data.filter((d) => d.value !== null && d.value !== undefined)
+                  .length / data.length;
+
+              if (completenessScore === 1) {
+                result.primary.completeness = "perfect";
+              } else if (completenessScore > 0.95) {
+                result.primary.completeness = "excellent";
+              } else if (completenessScore > 0.9) {
+                result.primary.completeness = "good";
+              } else if (completenessScore > 0.8) {
+                result.primary.completeness = "fair";
+              } else if (completenessScore > 0.7) {
+                result.primary.completeness = "poor";
+              } else {
+                result.primary.completeness = "very_poor";
+              }
+            }
+
+            if (parameters.qualityMetrics.includes("consistency")) {
+              const categoryConsistency = data.every(
+                (d) => typeof d.category === "string" && d.category.length > 0
+              );
+              const valueConsistency = data.every(
+                (d) => typeof d.value === "number" && !isNaN(d.value)
+              );
+
+              if (categoryConsistency && valueConsistency) {
+                result.secondary.consistency = "fully_consistent";
+              } else if (categoryConsistency || valueConsistency) {
+                result.secondary.consistency = "partially_consistent";
+              } else {
+                result.secondary.consistency = "inconsistent";
+              }
+            }
+
+            if (parameters.qualityMetrics.includes("accuracy")) {
+              const confidenceScores = data.map((d) => d.metadata.confidence);
+              const avgConfidence =
+                confidenceScores.reduce((sum, conf) => sum + conf, 0) /
+                confidenceScores.length;
+
+              if (avgConfidence > 0.9) {
+                result.tertiary.accuracy = "very_high";
+              } else if (avgConfidence > 0.8) {
+                result.tertiary.accuracy = "high";
+              } else if (avgConfidence > 0.7) {
+                result.tertiary.accuracy = "moderate";
+              } else if (avgConfidence > 0.6) {
+                result.tertiary.accuracy = "low";
+              } else {
+                result.tertiary.accuracy = "very_low";
+              }
+            }
+          }
+          break;
+
+        case "performance":
+          if (parameters.performanceMetrics) {
+            if (parameters.performanceMetrics.includes("throughput")) {
+              const processingTimes = data.map((d) => d.processing.stage);
+              const avgProcessingStage =
+                processingTimes.reduce((sum, stage) => sum + stage, 0) /
+                processingTimes.length;
+
+              if (avgProcessingStage >= 5) {
+                result.primary.throughput = "fully_processed";
+              } else if (avgProcessingStage >= 4) {
+                result.primary.throughput = "mostly_processed";
+              } else if (avgProcessingStage >= 3) {
+                result.primary.throughput = "partially_processed";
+              } else if (avgProcessingStage >= 2) {
+                result.primary.throughput = "minimally_processed";
+              } else {
+                result.primary.throughput = "unprocessed";
+              }
+            }
+
+            if (parameters.performanceMetrics.includes("error_rate")) {
+              const totalErrors = data.reduce(
+                (sum, d) => sum + d.processing.errors.length,
+                0
+              );
+              const errorRate = totalErrors / data.length;
+
+              if (errorRate === 0) {
+                result.secondary.errorRate = "error_free";
+              } else if (errorRate < 0.01) {
+                result.secondary.errorRate = "very_low_errors";
+              } else if (errorRate < 0.05) {
+                result.secondary.errorRate = "low_errors";
+              } else if (errorRate < 0.1) {
+                result.secondary.errorRate = "moderate_errors";
+              } else if (errorRate < 0.2) {
+                result.secondary.errorRate = "high_errors";
+              } else {
+                result.secondary.errorRate = "critical_errors";
+              }
+            }
+
+            if (parameters.performanceMetrics.includes("resource_usage")) {
+              const transformationCounts = data.map(
+                (d) => d.processing.transformations.length
+              );
+              const avgTransformations =
+                transformationCounts.reduce((sum, count) => sum + count, 0) /
+                transformationCounts.length;
+
+              if (avgTransformations < 1) {
+                result.tertiary.resourceUsage = "minimal";
+              } else if (avgTransformations < 3) {
+                result.tertiary.resourceUsage = "light";
+              } else if (avgTransformations < 5) {
+                result.tertiary.resourceUsage = "moderate";
+              } else if (avgTransformations < 8) {
+                result.tertiary.resourceUsage = "heavy";
+              } else {
+                result.tertiary.resourceUsage = "intensive";
+              }
+            }
+          }
+          break;
+
+        default:
+          result.error = "Unknown analysis type";
+          return result;
+      }
+
+      // Generate comprehensive recommendations with complex branching logic (20+ decision points)
+      if (
+        result.primary.completeness === "poor" ||
+        result.primary.completeness === "very_poor"
+      ) {
+        result.recommendations.push(
+          "Improve data collection processes to reduce missing values"
+        );
+        result.alerts.push("Data completeness below acceptable threshold");
+
+        if (result.secondary.consistency === "inconsistent") {
+          result.alerts.push(
+            "Critical: Both completeness and consistency issues detected"
+          );
+        }
+      }
+
+      if (
+        result.secondary.errorRate === "high_errors" ||
+        result.secondary.errorRate === "critical_errors"
+      ) {
+        result.recommendations.push(
+          "Review and optimize data processing pipeline"
+        );
+        result.alerts.push(
+          "High error rate detected - immediate attention required"
+        );
+
+        if (
+          result.primary.throughput === "unprocessed" ||
+          result.primary.throughput === "minimally_processed"
+        ) {
+          result.alerts.push(
+            "Critical: High errors with low processing completion"
+          );
+        }
+      }
+
+      if (
+        result.tertiary.accuracy === "low" ||
+        result.tertiary.accuracy === "very_low"
+      ) {
+        result.recommendations.push("Implement additional validation rules");
+        result.recommendations.push("Consider data source verification");
+      }
+
+      if (result.primary.diversity === "homogeneous") {
+        result.recommendations.push("Consider diversifying data sources");
+      } else if (result.primary.diversity === "high_diversity") {
+        result.recommendations.push(
+          "Monitor for potential data quality issues due to high diversity"
+        );
+
+        if (result.secondary.consistency === "inconsistent") {
+          result.alerts.push("High diversity with consistency issues");
+        }
+      }
+
+      if (result.secondary.distribution === "extreme_variance") {
+        result.recommendations.push("Investigate causes of extreme variance");
+        result.alerts.push("Unusual distribution pattern detected");
+      }
+
+      if (
+        result.tertiary.resourceUsage === "heavy" ||
+        result.tertiary.resourceUsage === "intensive"
+      ) {
+        result.recommendations.push(
+          "Optimize processing algorithms for better performance"
+        );
+      }
+
+      // Final scoring with multiple conditions
+      let overallScore = 100;
+
+      if (result.alerts.length > 0) {
+        overallScore -= result.alerts.length * 15;
+
+        if (result.alerts.length > 3) {
+          overallScore -= (result.alerts.length - 3) * 10;
+        }
+      }
+
+      if (result.recommendations.length > 3) {
+        overallScore -= (result.recommendations.length - 3) * 5;
+      }
+
+      result.metrics.overallScore = Math.max(0, overallScore);
+
+      if (result.metrics.overallScore >= 90) {
+        result.metrics.classification = "excellent";
+      } else if (result.metrics.overallScore >= 80) {
+        result.metrics.classification = "good";
+      } else if (result.metrics.overallScore >= 70) {
+        result.metrics.classification = "acceptable";
+      } else if (result.metrics.overallScore >= 60) {
+        result.metrics.classification = "needs_improvement";
+      } else {
+        result.metrics.classification = "critical";
+      }
+
+      return result;
+    },
+    []
+  );
+
   return (
     <div className="min-h-screen bg-[#303030] text-white p-8">
       <div className="max-w-7xl mx-auto">
@@ -1030,8 +1654,9 @@ export default function ComplexDataProcessor() {
           Complex Data Processor
         </h1>
         <p className="text-center mb-8 text-gray-300">
-          Demonstrates high cognitive complexity (30+) and cyclomatic complexity
-          (40+) for SonarQube analysis
+          Demonstrates ultra-high cognitive complexity (50+) and cyclomatic
+          complexity (70+) for SonarQube analysis, including the
+          ultraComplexDataAnalyzer function
         </p>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -1051,7 +1676,7 @@ export default function ComplexDataProcessor() {
                   type="number"
                   placeholder="Min Value Filter"
                   onChange={(e) =>
-                    setFilterCriteria((prev) => ({
+                    setFilterCriteria((prev: any) => ({
                       ...prev,
                       minValue: parseFloat(e.target.value),
                     }))
@@ -1062,7 +1687,7 @@ export default function ComplexDataProcessor() {
                   type="number"
                   placeholder="Max Value Filter"
                   onChange={(e) =>
-                    setFilterCriteria((prev) => ({
+                    setFilterCriteria((prev: any) => ({
                       ...prev,
                       maxValue: parseFloat(e.target.value),
                     }))
